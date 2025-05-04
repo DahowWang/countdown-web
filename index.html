@@ -5,24 +5,55 @@
   <title>倒數計時器</title>
   <style>
     body {
-  font-family: 'Arial', sans-serif;
-  background: #E6B800; /* 深黃色背景 */
-  text-align: center;
-  padding-top: 100px;
-}
+      font-family: 'Arial', sans-serif;
+      background: #ffffff;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
 
-#countdown {
-  font-size: 48px;
-  font-weight: bold;
-  color: #001f3f; /* 深藍文字 */
-}
+    /* 黃色底區塊 */
+    #countdown-wrapper {
+      background-color: #E6B800;
+      padding: 30px 0;
+      width: 80%;
+      max-width: 600px;
+      margin: 0 auto;
+      border-radius: 16px; /* 圓角 */
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* 可選陰影 */
+    }
+
+    #countdown {
+      font-size: 48px;
+      font-weight: bold;
+      color: #001f3f;
+      margin-bottom: 10px;
+    }
+
+    #powered-by {
+      font-size: 14px;
+      color: #333;
+      opacity: 0.7;
+    }
+
+    .spacer {
+      height: 100px;
+    }
   </style>
 </head>
 <body>
-  <div id="countdown">載入中...</div>
+
+  <div class="spacer"></div>
+
+  <div id="countdown-wrapper">
+    <div id="countdown">載入中...</div>
+    <div id="powered-by">powered by Dahow</div>
+  </div>
+
+  <div class="spacer"></div>
 
   <script>
-    const endTime = new Date("2025-05-05T12:00:00").getTime();
+    const endTime = new Date("2025-05-06T12:00:00").getTime();
 
     function updateCountdown() {
       const now = new Date().getTime();
@@ -46,5 +77,6 @@
     const timer = setInterval(updateCountdown, 1000);
     updateCountdown();
   </script>
+
 </body>
 </html>
