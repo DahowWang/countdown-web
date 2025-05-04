@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <title>倒數計時器</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #f8f8f8;
+      text-align: center;
+      padding-top: 100px;
+    }
+
+    #countdown {
+      font-size: 48px;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div id="countdown">載入中...</div>
+
+  <script>
+    const endTime = new Date("2025-05-10T20:00:00").getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const remaining = endTime - now;
+
+      if (remaining <= 0) {
+        document.getElementById("countdown").innerText = "活動已結束";
+        clearInterval(timer);
+        return;
+      }
+
+      const days = Math.floor(remaining / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((remaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
+
+      document.getElementById("countdown").innerText =
+        `${days}天 ${String(hours).padStart(2, '0')}時 ${String(minutes).padStart(2, '0')}分 ${String(seconds).padStart(2, '0')}秒`;
+    }
+
+    const timer = setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script>
+</body>
+</html>
