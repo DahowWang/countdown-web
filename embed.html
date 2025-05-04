@@ -2,18 +2,13 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8" />
-  <title>倒數計時器 Embed</title>
+  <title>倒數計時嵌入</title>
   <style>
     html, body {
       margin: 0;
       padding: 0;
-      width: 100%;
-      height: 100%;
-      background: #000;
-      background-image: url('https://imgur.com/t0mcj0r'); /* 可替換背景 */
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
+      background: #ffffff;
+      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -21,29 +16,41 @@
     }
 
     #countdown-wrapper {
-      background: rgba(255, 224, 102, 0.85); /* 黃色 + 透明度 */
-      backdrop-filter: blur(6px); /* 玻璃模糊效果 */
+      width: 100%;
+      max-width: 600px;
       padding: 30px;
       border-radius: 16px;
       text-align: center;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-      transform-origin: center;
-      transform: scale(1); /* 可被 scale 調整 */
-      max-width: 600px;
-      width: 80%;
+      position: relative;
+      overflow: hidden;
+
+      /* 讓背景圖只在卡片裡 */
+      background-image: url('https://imgur.com/a/mmgaMYz');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+
+      /* 半透明+模糊效果 */
+      background-color: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
     }
 
     #countdown {
       font-size: 48px;
       font-weight: bold;
-      color: #001f3f;
+      color: #001f3f; /* 深藍字，也可改成白色視背景而定 */
       margin-bottom: 10px;
+      z-index: 1;
     }
 
     #powered-by {
       font-size: 14px;
       color: #333;
       opacity: 0.7;
+      z-index: 1;
     }
   </style>
 </head>
@@ -57,24 +64,21 @@
   <script>
     const params = new URLSearchParams(window.location.search);
     const endParam = params.get('end');
-    const scaleParam = parseFloat(params.get('scale')) || 1;
     const bgParam = params.get('bg');
 
-    if (bgParam) {
-      document.body.style.backgroundImage = `url(${decodeURIComponent(bgParam)})`;
-    }
-
     const wrapper = document.getElementById("countdown-wrapper");
-    wrapper.style.transform = `scale(${scaleParam})`;
+
+    if (bgParam) {
+      wrapper.style.backgroundImage = `url(${decodeURIComponent(bgParam)})`;
+    }
 
     const endTime = endParam
       ? new Date(endParam).getTime()
-      : new Date("2025-06-01T23:59:00").getTime();
+      : new Date("2025-05-05T23:59:00").getTime();
 
     function updateCountdown() {
       const now = new Date().getTime();
       const remaining = endTime - now;
-
       const el = document.getElementById("countdown");
 
       if (remaining <= 0) {
